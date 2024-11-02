@@ -1,0 +1,22 @@
+service: poc-nestjs-serverless
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+
+functions:
+  login:
+    handler: dist/apps/login/lambda.handler
+    events:
+      - http:
+          method: POST
+          path: /login
+  logout:
+    handler: dist/apps/logout/lambda.handler
+    events:
+      - http:
+          method: POST
+          path: /logout

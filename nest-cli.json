@@ -16,7 +16,8 @@
       "entryFile": "main",
       "sourceRoot": "apps/login/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/login/tsconfig.app.json"
+        "tsConfigPath": "apps/login/tsconfig.app.json",
+        "webpackConfigPath": "apps/login/webpack.config.js"
       }
     },
     "logout": {
@@ -25,8 +26,10 @@
       "entryFile": "main",
       "sourceRoot": "apps/logout/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/logout/tsconfig.app.json"
+        "tsConfigPath": "apps/logout/tsconfig.app.json",
+        "webpackConfigPath": "apps/logout/webpack.config.js"
       }
     }
   }
 }
+
