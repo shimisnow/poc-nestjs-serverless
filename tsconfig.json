@@ -19,8 +19,8 @@
     "noFallthroughCasesInSwitch": false,
     "esModuleInterop": true,
     "paths": {
-      "@libs/auth/*": ["libs/auth-library/src/*"]
+      "@libs/auth/*": ["libs/auth-library/src/*"],
+      "@libs/database/*": ["libs/database-library/src/*"]
     }
   }
 }
-

@@ -78,7 +78,8 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "^@lib/auth-library(|/.*)$": "<rootDir>/libs/auth-library/src/$1"
+      "^@libs/auth(|/.*)$": "<rootDir>/libs/auth-library/src/$1",
+      "^@libs/database(|/.*)$": "<rootDir>/libs/database-library/src/$1"
     }
   }
 }

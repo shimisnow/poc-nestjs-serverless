@@ -38,7 +38,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/auth-library/tsconfig.lib.json"
       }
+    },
+    "database-library": {
+      "type": "library",
+      "root": "libs/database-library",
+      "entryFile": "index",
+      "sourceRoot": "libs/database-library/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/database-library/tsconfig.lib.json"
+      }
     }
   }
 }
-
