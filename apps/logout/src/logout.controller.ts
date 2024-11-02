@@ -1,10 +1,9 @@
 import { Controller, HttpCode, Post, UseGuards } from '@nestjs/common';
 import { LogoutService } from './logout.service';
-import { UserPayload } from './payloads/user.payload';
-//import { User } from '../../../libs/auth-library/src/decorators/user.decorator';
+import { UserPayload } from '@libs/auth/payloads/user.payload';
 import { User } from '@libs/auth/decorators/user.decorator';
+import { AuthGuard } from '@libs/auth/guards/auth.guard';
 import { LogoutSerializer } from './serializers/logout.serializer';
-import { AuthGuard } from './guards/auth.guard';
 
 @Controller('logout')
 export class LogoutController {
