@@ -18,7 +18,9 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "esModuleInterop": true,
-    "paths": {}
+    "paths": {
+      "@libs/auth/*": ["libs/auth-library/src/*"]
+    }
   }
 }
 

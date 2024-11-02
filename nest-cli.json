@@ -29,6 +29,15 @@
         "tsConfigPath": "apps/logout/tsconfig.app.json",
         "webpackConfigPath": "apps/logout/webpack.config.js"
       }
+    },
+    "auth-library": {
+      "type": "library",
+      "root": "libs/auth-library",
+      "entryFile": "index",
+      "sourceRoot": "libs/auth-library/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/auth-library/tsconfig.lib.json"
+      }
     }
   }
 }
