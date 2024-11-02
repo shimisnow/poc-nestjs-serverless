@@ -1,8 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import { LogoutSerializer } from './serializers/logout.serializer';
 
 @Injectable()
 export class LogoutService {
-  getHello(): string {
-    return 'Hello World!';
+  async logout(userId: string, loginId: string): Promise<LogoutSerializer> {
+    return {
+      performed: true,
+      performedAt: new Date().getTime(),
+    };
   }
 }
