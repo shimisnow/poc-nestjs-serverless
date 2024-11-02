@@ -30,7 +30,7 @@ module.exports = {
   mode: 'development',
   devtool: 'source-map', // Optional for better debugging
   optimization: {
-    minimize: true,
+    minimize: false,
     minimizer: [
       new TerserPlugin({
         terserOptions: {
