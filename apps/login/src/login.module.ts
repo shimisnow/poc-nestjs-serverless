@@ -2,9 +2,13 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { LoginController } from './login.controller';
 import { LoginService } from './login.service';
+import { DatabaseLibraryModule } from '@libs/database/database-library.module';
+import { UserAuthsRepositoryModule } from '@libs/database/repositories/user-auths/user-auths-repository.module';
 
 @Module({
   imports: [
+    DatabaseLibraryModule,
+    UserAuthsRepositoryModule,
     JwtModule.register({
       global: true,
     }),

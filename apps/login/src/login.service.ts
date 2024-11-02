@@ -1,23 +1,71 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadGatewayException,
+  HttpStatus,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { LoginSerializer } from './serializers/login.serializer';
 import { AuthRoleEnum } from '@libs/auth/enums/auth-role.enum';
+import { UserAuthEntity } from '@libs/database/entities/user-auth.entity';
+import { UserAuthsRepository } from '@libs/database/repositories/user-auths/user-auths.repository';
+import { UserAuthStatusEnum } from '@libs/database/enums/user-auth-status.enum';
+import { AuthErrorNames } from '@libs/auth/enums/auth-error-names.enum';
+import { AuthErrorMessages } from '@libs/auth/enums/auth-error-messages.enum';
 
 @Injectable()
 export class LoginService {
-  constructor(private jwtService: JwtService) {}
+  constructor(
+    private userAuthsRepository: UserAuthsRepository,
+    private jwtService: JwtService,
+  ) {}
 
+  /**
+   * Gets token to be used at API requests.
+   *
+   * @param username Username
+   * @param password Password in plain text
+   * @param requestRefreshToken If a refreshToken should be generated
+   * @returns Data with token to be used at the private endpoints
+   * @throws BadGatewayException Database error
+   * @throws UnauthorizedException User do not exists, is inactive or password is incorrect
+   */
   async login(
     username: string,
     password: string,
     requestRefreshToken: boolean,
   ): Promise<LoginSerializer> {
-    const loginId = new Date().getTime().toString();
+    let user: UserAuthEntity = null;
 
-    const user = {
-      userId: 'abc',
-      role: AuthRoleEnum.USER,
-    };
+    try {
+      user = await this.userAuthsRepository.findByUsername(username);
+    } catch (error) {
+      throw new BadGatewayException(error.message);
+    }
+
+    // if the user does not exists, will throw this if error
+    if (user?.status !== UserAuthStatusEnum.ACTIVE) {
+      throw new UnauthorizedException({
+        statusCode: HttpStatus.UNAUTHORIZED,
+        data: {
+          name: AuthErrorNames.CREDENTIAL_ERROR,
+          errors: [AuthErrorMessages.WRONG_USER_PASSWORD],
+        },
+      });
+    }
+
+    if ((await bcrypt.compare(password, user?.password)) === false) {
+      throw new UnauthorizedException({
+        statusCode: HttpStatus.UNAUTHORIZED,
+        data: {
+          name: AuthErrorNames.CREDENTIAL_ERROR,
+          errors: [AuthErrorMessages.WRONG_USER_PASSWORD],
+        },
+      });
+    }
+
+    const loginId = new Date().getTime().toString();
 
     if (requestRefreshToken) {
       const [accessToken, refreshToken] = await Promise.all([
