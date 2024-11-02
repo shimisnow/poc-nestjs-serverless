@@ -2,6 +2,20 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const TerserPlugin = require('terser-webpack-plugin');
 
+// Load the TypeScript configuration
+const tsConfig = require('../../tsconfig.json');
+
+// Create a paths mapping
+const alias = {};
+if (tsConfig.compilerOptions.paths) {
+  for (const [key, value] of Object.entries(tsConfig.compilerOptions.paths)) {
+    alias[key.replace('/*', '')] = path.join(
+      path.resolve(__dirname, '../..'), // project root
+      value[0].replace('/*', ''),
+    );
+  }
+}
+
 module.exports = {
   entry: {
     main: './apps/login/src/main.ts',
@@ -14,6 +28,7 @@ module.exports = {
     clean: true,
   },
   resolve: {
+    alias,
     extensions: ['.ts', '.js'],
   },
   module: {

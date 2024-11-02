@@ -1,6 +1,5 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
-const tsConfigPaths = require('tsconfig-paths');
 const TerserPlugin = require('terser-webpack-plugin');
 
 // Load the TypeScript configuration
