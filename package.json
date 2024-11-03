@@ -8,18 +8,17 @@
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
-    "start": "nest start",
-    "start:dev": "nest start --watch",
+    "start:dev:login": "dotenv -e .env nest start login --watch",
+    "start:dev:logout": "dotenv -e .env nest start logout --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/apps/login/main",
+    "start:prod:login": "dotenv -e .env node dist/apps/login/main",
+    "start:prod:logout": "dotenv -e .env node dist/apps/logout/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./apps/login/test/jest-e2e.json",
-    "start:dev:login": "dotenv -e .env nest start login --watch",
-    "start:dev:logout": "dotenv -e .env nest start logout --watch"
+    "test:e2e": "jest --config ./apps/login/test/jest-e2e.json"
   },
   "dependencies": {
     "@codegenie/serverless-express": "^4.16.0",
