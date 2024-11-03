@@ -1,6 +1,8 @@
-# Authentication REST API with NestJS Monorepo and Serveless
+![](docs/markdown/images/serverless-framework.png)
 
-This project is a robust authentication REST API built using NestJS, structured as a monorepo. Each endpoint is deployed as a separate AWS Lambda function, utilizing the Serverless Framework for seamless deployment and management. This architecture ensures scalability, flexibility, and easy maintenance, making it ideal for modern applications requiring secure user authentication.
+# NestJS Monorepo and Serveless Framework
+
+This project is REST API built using NestJS, structured as a monorepo. Each endpoint is deployed as a separate AWS Lambda function, utilizing the Serverless Framework for seamless deployment and management. This architecture ensures scalability, flexibility, and easy maintenance, making it ideal for modern applications requiring secure user authentication.
 
 ## Key features
 
@@ -22,10 +24,10 @@ This project is a robust authentication REST API built using NestJS, structured 
 
 ## General organization
 
-The project has two endpoints (AWS Lambda):
+The project has two endpoints, each one is an app inside the monorepo and run in its own lambda function:
 
-- **Login**:
-- **Logout**:
+- **Login**: receives username and password and issue an access token
+- **Logout**: invalidates the token that made the logout
 
 ## DevOps flow
 
@@ -34,3 +36,4 @@ TO DO
 ## Documentation about
 
 - [How to contribute](./CONTRIBUTING.md)
+- [How to run from code](docs/markdown/how-to-run.md)
