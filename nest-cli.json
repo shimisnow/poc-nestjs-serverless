@@ -47,6 +47,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/database-library/tsconfig.lib.json"
       }
+    },
+    "cache-library": {
+      "type": "library",
+      "root": "libs/cache-library",
+      "entryFile": "index",
+      "sourceRoot": "libs/cache-library/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/cache-library/tsconfig.lib.json"
+      }
     }
   }
 }

@@ -19,8 +19,18 @@
     "noFallthroughCasesInSwitch": false,
     "esModuleInterop": true,
     "paths": {
-      "@libs/auth/*": ["libs/auth-library/src/*"],
-      "@libs/database/*": ["libs/database-library/src/*"]
+      "@libs/auth/*": [
+        "libs/auth-library/src/*"
+      ],
+      "@libs/database/*": [
+        "libs/database-library/src/*"
+      ],
+      "@libs/cache-library": [
+        "libs/cache-library/src"
+      ],
+      "@libs/cache-library/*": [
+        "libs/cache-library/src/*"
+      ]
     }
   }
 }
