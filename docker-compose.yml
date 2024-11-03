@@ -4,7 +4,7 @@ networks:
 
 services:
   database-auth:
-    image: postgres:16.1
+    image: postgres:17.0
     restart: always
     environment:
       POSTGRES_USER: ${DATABASE_AUTH_USERNAME}
@@ -16,3 +16,20 @@ services:
       - ${DATABASE_AUTH_PORT}:5432
     volumes:
       - ./deployment/database/authentication:/docker-entrypoint-initdb.d:ro
+
+  redis:
+    image: redis:7.4.1
+    networks:
+      - poc-nestjs-serverless
+    restart: always
+    ports:
+      - ${REDIS_PORT}:6379
+
+  redis-ui:
+    image: patrikx3/p3x-redis-ui:2024.10.106
+    networks:
+      - poc-nestjs-serverless
+    ports:
+      - 7843:7843
+    volumes:
+      - ./deployment/redis-ui:/settings
