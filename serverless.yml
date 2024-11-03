@@ -6,6 +6,7 @@ plugins:
 provider:
   name: aws
   runtime: nodejs14.x
+  timeout: 30
 
 functions:
   login:

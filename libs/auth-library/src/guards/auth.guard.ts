@@ -2,19 +2,27 @@ import {
   CanActivate,
   ExecutionContext,
   HttpStatus,
+  Inject,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
+import { Cache } from 'cache-manager';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Request } from 'express';
 import { plainToClass } from 'class-transformer';
 import { validateOrReject } from 'class-validator';
 import { JwtService } from '@nestjs/jwt';
 import { UserPayload } from '../payloads/user.payload';
 import { AuthErrorNames } from '../enums/auth-error-names.enum';
+import { CacheKeyPrefix } from '@libs/cache-library/enums/cache-key-prefix.enum';
+import { AuthErrorMessages } from '../enums/auth-error-messages.enum';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private jwtService: JwtService) {}
+  constructor(
+    @Inject(CACHE_MANAGER) private cacheService: Cache,
+    private jwtService: JwtService,
+  ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
@@ -85,6 +93,25 @@ export class AuthGuard implements CanActivate {
         data: {
           name: AuthErrorNames.JWT_PAYLOAD_STRUCTURE_ERROR,
           errors: messages,
+        },
+      });
+    }
+
+    // verify if the combination of userId with loginId is marked in cache as invalid
+    const logoutVerification = await this.cacheService.get(
+      [
+        CacheKeyPrefix.AUTH_SESSION_LOGOUT,
+        payload.userId,
+        payload.loginId,
+      ].join(':'),
+    );
+
+    if (logoutVerification !== null) {
+      throw new UnauthorizedException({
+        statusCode: HttpStatus.UNAUTHORIZED,
+        data: {
+          name: AuthErrorNames.JWT_INVALIDATED_BY_SERVER,
+          errors: [AuthErrorMessages.INVALIDATED_BY_LOGOUT],
         },
       });
     }
