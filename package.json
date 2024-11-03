@@ -18,7 +18,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./apps/login/test/jest-e2e.json",
-    "start:dev:login": "dotenv -e .env nest start login"
+    "start:dev:login": "dotenv -e .env nest start login --watch",
+    "start:dev:logout": "dotenv -e .env nest start logout --watch"
   },
   "dependencies": {
     "@codegenie/serverless-express": "^4.16.0",
@@ -31,7 +32,6 @@
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
-    "dotenv": "^16.4.5",
     "pg": "^8.13.1",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
@@ -48,6 +48,7 @@
     "@types/supertest": "^6.0.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
+    "dotenv": "^16.4.5",
     "dotenv-cli": "^7.4.2",
     "eslint": "^8.0.0",
     "eslint-config-prettier": "^9.0.0",

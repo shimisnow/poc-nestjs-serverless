@@ -9,12 +9,15 @@ provider:
 
 functions:
   login:
+    environment: ${file(.env.json)}
     handler: dist/apps/login/lambda.handler
     events:
       - http:
           method: POST
           path: /login
+
   logout:
+    environment: ${file(.env.json)}
     handler: dist/apps/logout/lambda.handler
     events:
       - http:

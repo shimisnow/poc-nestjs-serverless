@@ -3,11 +3,6 @@ import serverlessExpress from '@codegenie/serverless-express';
 import { Callback, Context, Handler } from 'aws-lambda';
 import { LoginModule } from './login.module';
 import { ValidationPipe } from '@nestjs/common';
-import * as dotenv from 'dotenv';
-import * as path from 'path';
-
-// Load the .env file from the root directory
-dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
 
 let server: Handler;
 
