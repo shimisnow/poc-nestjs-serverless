@@ -10,7 +10,11 @@
 The file `.env` is used to deploy the local Docker database and to run the code as individual node applications  
 The file `.env.json` is used to pass variables to the serverless framework
 
-A local PostgreSQL database can be started with `docker compose up -d database-auth`. The database will be started with the `.sql` files from `deployment/database/authentication`
+Local dependencies can be started with:
+
+- PostgreSQL database: `docker compose up -d database-auth`. The database will be started with the `.sql` files from `deployment/database/authentication`
+- Redis: `docker compose up -d redis`
+- Redis UI: `docker compose up -d redis-ui`. It can be accessed at [http://localhost:7843](http://localhost:7843)
 
 ## Run the code with Node (test purpose)
 
