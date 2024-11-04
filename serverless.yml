@@ -1,17 +1,40 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: serveless1
 service: poc-nestjs-serverless
+
+provider:
+  name: aws
+  profile: aws-serverless
+  runtime: nodejs20.x
+  timeout: 2
 
 plugins:
   - serverless-offline
 
-provider:
-  name: aws
-  runtime: nodejs14.x
-  timeout: 30
+package:
+  individually: true
+
+# The name of your layer in the CloudFormation template will be your layer name TitleCased (without spaces) and have LambdaLayer appended to the end
+# For a layer named "Test", use "!Ref TestLambdaLayer"
+layers:
+  nodeModulesLayer:
+    description: A layer with node_modules for production environment
+    path: aws_node_modules
+    package:
+      # see project /docs/markdown/how-to-deploy.md to details as how to generate the nodejs_node_modules.zip file
+      artifact: aws_node_modules/nodejs_node_modules.zip
 
 functions:
   login:
     environment: ${file(.env.json)}
+    package:
+      include:
+        - dist/apps/login/lambda.js
+      exclude:
+        - ./**
     handler: dist/apps/login/lambda.handler
+    layers:
+      - !Ref NodeModulesLayerLambdaLayer
     events:
       - http:
           method: POST
@@ -19,7 +42,14 @@ functions:
 
   logout:
     environment: ${file(.env.json)}
+    package:
+      include:
+        - dist/apps/logout/lambda.js
+      exclude:
+        - ./**
     handler: dist/apps/logout/lambda.handler
+    layers:
+      - !Ref NodeModulesLayerLambdaLayer
     events:
       - http:
           method: POST

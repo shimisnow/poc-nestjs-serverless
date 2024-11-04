@@ -3,6 +3,12 @@ networks:
     driver: bridge
 
 services:
+  aws-node-modules:
+    image: aws-node-modules:latest
+    build:
+      context: .
+      dockerfile: ./deployment/aws_lambda/layers/Dockerfile
+
   database-auth:
     image: postgres:17.0
     restart: always
