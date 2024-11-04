@@ -17,3 +17,28 @@ docker create --name aws_node_temp aws-node-modules:latest
 docker cp aws_node_temp:/home/node/nodejs_node_modules.zip ./aws_node_modules/nodejs_node_modules.zip
 docker rm aws_node_temp
 ```
+
+## Create the infrastructure
+
+This project needs a SQL database and a Redis cache.
+
+The required infrastructure can be created at Amazon AWS using terraform. All commands should be executed inside the directore `deployment/terraform`
+
+```sh
+terraform init
+terraform plan
+terraform apply
+```
+
+## Build the code
+
+```sh
+npm run build:login
+npm run build:logout
+```
+
+## Deploy
+
+```sh
+serverless deploy
+```
