@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { Cache } from 'cache-manager';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { LogoutSerializer } from './serializers/logout.serializer';
-import { CacheKeyPrefix } from '@libs/cache-library/enums/cache-key-prefix.enum';
+import { CacheKeyPrefix } from '@libs/cache/enums/cache-key-prefix.enum';
 
 @Injectable()
 export class LogoutService {
