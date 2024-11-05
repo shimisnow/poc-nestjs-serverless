@@ -7,7 +7,7 @@ services:
     image: aws-node-modules:latest
     build:
       context: .
-      dockerfile: ./deployment/aws_lambda/layers/Dockerfile
+      dockerfile: ./deployment/aws-lambda/layers/Dockerfile
 
   database-auth:
     image: postgres:17.0

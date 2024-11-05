@@ -13,14 +13,18 @@ This project is REST API built using NestJS, structured as a monorepo. Each endp
 
 ## Technology Stack
 
+- Serverless deployment: [Serverless Framework](https://www.serverless.com/), [Webpack](https://webpack.js.org/)
+- Infrastructure as code (IaC): [Terraform](https://www.terraform.io/)
+- AWS Cloud: [Lambda](https://aws.amazon.com/lambda/) functions and layers, [API Gateway](https://aws.amazon.com/api-gateway/), [RDS](https://aws.amazon.com/rds/), [ElastiCache](https://aws.amazon.com/elasticache/)
+- Backend: [NestJS Framework](https://docs.nestjs.com/), Node.js, REST API, TypeScript
 - Code organization: monorepo with [NestJS workspaces](https://docs.nestjs.com/cli/monorepo#monorepo-mode)
-- Backend: REST API, Node.js, [NestJS Framework](https://docs.nestjs.com/), TypeScript
 - Database and cache: PostgreSQL, Redis, [TypeORM](https://typeorm.io/)
 - Security: [JWT](https://jwt.io/) and [BCrypt](https://www.npmjs.com/package/bcrypt)
+
 - Tests: TO DO
 - CI/CD: TO DO
-- Documentation: TO DO
-- Others: TO DO
+- Documentation: [Mermaid (diagram-as-code)](https://mermaid.js.org/)
+- Others: Docker
 
 ## General organization
 

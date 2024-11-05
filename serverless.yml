@@ -4,9 +4,13 @@ service: poc-nestjs-serverless
 
 provider:
   name: aws
+  region: us-east-1
   profile: aws-serverless
+  vpc:
+    securityGroupIds:
+      - sg-023fc0ceb6078a1b9
   runtime: nodejs20.x
-  timeout: 2
+  timeout: 2 # in seconds
 
 plugins:
   - serverless-offline
