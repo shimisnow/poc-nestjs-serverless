@@ -13,14 +13,13 @@ This monorepo contains a set of **REST APIs microservices** built with **NestJS*
 - Code organization: monorepo with [NestJS workspaces](https://docs.nestjs.com/cli/monorepo#monorepo-mode)
 - Database and cache: PostgreSQL, Redis, [TypeORM](https://typeorm.io/)
 - Security: [JWT](https://jwt.io/) and [BCrypt](https://www.npmjs.com/package/bcrypt)
-- Tests: TO DO
-- CI/CD: TO DO
-- Documentation: [Mermaid (diagram-as-code)](https://mermaid.js.org/)
+- Tests: Unit and integration testing ([Jest](https://jestjs.io/))
+- Documentation: Markdown, [Mermaid (diagram-as-code)](https://mermaid.js.org/)
 - Others: Docker
 
 ## General organization
 
-The project has two endpoints, each one is an app inside the monorepo and run in its own lambda function:
+The project has two endpoints for a simple [authentication flow](/docs/markdown/authentication-flow.md), each one is an app inside the monorepo and run in its own lambda function:
 
 - **Login**: receives username and password and issue an access token
 - **Logout**: invalidates the token that made the logout
@@ -63,10 +62,6 @@ lambda_logout --> cache
 
 consumer --> api_entrypoint
 ```
-
-## DevOps flow
-
-TO DO
 
 ## Documentation about
 

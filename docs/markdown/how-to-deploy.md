@@ -1,5 +1,7 @@
 # How to deploy
 
+`THIS IS A PROJECT FOR LEARNING PURPOSES, SO THERE IS HARDCODED SIMULATED SENSITIVE INFORMATION`
+
 ## Generate node_modules
 
 As AWS Lambda runtime executes with Amazon Linux, all node_modules libraries need to be for Linux. To avoid using the node_modules from local project running with Windows, this project ensures the use os a node_modules for Linux using Docker.
