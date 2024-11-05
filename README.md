@@ -2,14 +2,7 @@
 
 # NestJS Monorepo and Serveless Framework
 
-This project is REST API built using NestJS, structured as a monorepo. Each endpoint is deployed as a separate AWS Lambda function, utilizing the Serverless Framework for seamless deployment and management. This architecture ensures scalability, flexibility, and easy maintenance, making it ideal for modern applications requiring secure user authentication.
-
-## Key features
-
-- **Modular Architecture**: Organized as a monorepo for easy development and management of multiple services.
-- **RESTful Endpoints**: Provides a full set of authentication endpoints including user registration, login, password reset, and token management.
-- **AWS Lambda Integration**: Each endpoint is deployed as a distinct Lambda function, allowing for efficient scaling and cost-effectiveness.
-- **Serverless Framework**: Simplifies deployment and configuration of AWS resources, enabling quick and reliable updates.
+This monorepo contains a set of **REST APIs microservices** built with **NestJS**, deployed using the **Serverless Framework** with **AWS Lambda** and **API Gateway** for serverless architecture. The project is managed with **Terraform** for infrastructure automation, integrating **AWS RDS** for relational database services and **AWS ElastiCache** for distributed caching. It is designed to streamline the deployment and management of serverless applications, offering seamless API integration, infrastructure provisioning, and efficient scaling on AWS.
 
 ## Technology Stack
 
@@ -20,7 +13,6 @@ This project is REST API built using NestJS, structured as a monorepo. Each endp
 - Code organization: monorepo with [NestJS workspaces](https://docs.nestjs.com/cli/monorepo#monorepo-mode)
 - Database and cache: PostgreSQL, Redis, [TypeORM](https://typeorm.io/)
 - Security: [JWT](https://jwt.io/) and [BCrypt](https://www.npmjs.com/package/bcrypt)
-
 - Tests: TO DO
 - CI/CD: TO DO
 - Documentation: [Mermaid (diagram-as-code)](https://mermaid.js.org/)
@@ -32,6 +24,45 @@ The project has two endpoints, each one is an app inside the monorepo and run in
 
 - **Login**: receives username and password and issue an access token
 - **Logout**: invalidates the token that made the logout
+
+```mermaid
+stateDiagram-v2
+direction LR
+
+state "Consumer" as consumer
+[*] --> consumer
+
+state "AWS API Gateway" as aws_api_gateway {
+    state "API Entrypoint" as api_entrypoint
+    state "REST API login" as api_login
+    state "REST API logout" as api_logout
+    api_entrypoint --> api_login
+    api_entrypoint --> api_logout
+    api_login --> lambda_login
+    api_logout --> lambda_logout
+}
+
+state "AWS Lambda" as aws_lambda {
+    state "Function login" as lambda_login
+    state "Function logout" as lambda_logout
+}
+
+state "AWS RDS" as aws_rds {
+    state "PostgreSQL Database" as database
+}
+
+state "AWS ElastiCache" as aws_elasticache {
+    state "Redis" as cache
+}
+
+lambda_login --> database
+lambda_login --> cache
+
+lambda_logout --> database
+lambda_logout --> cache
+
+consumer --> api_entrypoint
+```
 
 ## DevOps flow
 
