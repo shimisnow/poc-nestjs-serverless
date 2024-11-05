@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { LogoutController } from './logout.controller';
 import { LogoutService } from './logout.service';
-import { CacheLibraryModule } from '@libs/cache-library/cache-library.module';
+import { CacheLibraryModule } from '@libs/cache/cache-library.module';
 
 @Module({
   imports: [
