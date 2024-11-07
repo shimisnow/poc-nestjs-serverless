@@ -14,7 +14,7 @@ import { validateOrReject } from 'class-validator';
 import { JwtService } from '@nestjs/jwt';
 import { UserPayload } from '../payloads/user.payload';
 import { AuthErrorNames } from '../enums/auth-error-names.enum';
-import { CacheKeyPrefix } from '@libs/cache-library/enums/cache-key-prefix.enum';
+import { CacheKeyPrefix } from '@libs/cache/enums/cache-key-prefix.enum';
 import { AuthErrorMessages } from '../enums/auth-error-messages.enum';
 
 @Injectable()
