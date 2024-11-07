@@ -11,7 +11,7 @@ The following command generates the node_modules with a major NodeJS official Do
 It also bundles the [AWS RDS certificates](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html#UsingWithRDS.SSL.CertificatesDownload) for a specific region that need to be set at the `AWS_REGION` variable at the file `deployment/local-dev/.env'
 
 ```sh
-docker compose build aws-lambda-layer
+docker compose --env-file ./deployment/local-dev/.env build aws-lambda-layer
 ```
 
 The following command copies the generated zip file inside the Docker image and put it at the path that Serverless Framework sets as artifact (/aws-lambda-layer/aws-lambda-layer.zip).

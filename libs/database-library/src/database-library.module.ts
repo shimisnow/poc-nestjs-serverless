@@ -15,15 +15,18 @@ import { entities } from './entities';
       database: process.env.DATABASE_AUTH_DBNAME,
       entities,
       synchronize: false,
-      ssl: {
-        rejectUnauthorized: true,
-        requestCert: true,
-        ca: fs
-          .readFileSync(
-            `${process.env.DATABASE_CERTIFICATE_PATH}/${process.env.AWS_REGION}-bundle.pem`,
-          )
-          .toString(),
-      },
+      ssl:
+        process.env.NODE_ENV === 'production'
+          ? {
+              rejectUnauthorized: true,
+              requestCert: true,
+              ca: fs
+                .readFileSync(
+                  `${process.env.DATABASE_CERTIFICATE_PATH}/${process.env.AWS_REGION}-bundle.pem`,
+                )
+                .toString(),
+            }
+          : false,
     }),
   ],
   providers: [DatabaseLibraryService],

@@ -5,7 +5,8 @@ networks:
 services:
   aws-lambda-layer:
     image: aws-lambda-layer:latest
-    env_file: ./deployment/local-dev/.env
+    environment:
+      - AWS_REGION
     build:
       context: .
       dockerfile: ./deployment/aws-lambda/layers/Dockerfile
