@@ -26,13 +26,15 @@ docker rm aws_lambda_layer_tmp
 
 This project needs a SQL database and a Redis cache.
 
-The required infrastructure can be created at Amazon AWS using terraform. All commands should be executed inside the directore `deployment/terraform`
+The required infrastructure can be created at Amazon AWS using terraform. All commands should be executed inside the directory `deployment/terraform`
 
 ```sh
 terraform init
 terraform plan
 terraform apply
 ```
+
+After the infrastructure creation, the database needs to be **MANUALLY** populated. After the infrastructure creation, the database needs to be **MANUALLY** populated. For this, connect to the database when execute the files from the directory `deployment/database/authentication/`
 
 ## Build the code
 
