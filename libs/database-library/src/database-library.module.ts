@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { DatabaseLibraryService } from './database-library.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import fs from 'fs';
 import { entities } from './entities';
 
 @Module({
@@ -14,6 +15,15 @@ import { entities } from './entities';
       database: process.env.DATABASE_AUTH_DBNAME,
       entities,
       synchronize: false,
+      ssl: {
+        rejectUnauthorized: true,
+        requestCert: true,
+        ca: fs
+          .readFileSync(
+            `${process.env.DATABASE_CERTIFICATE_PATH}/${process.env.AWS_REGION}-bundle.pem`,
+          )
+          .toString(),
+      },
     }),
   ],
   providers: [DatabaseLibraryService],

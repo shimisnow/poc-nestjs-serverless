@@ -8,7 +8,9 @@ provider:
   profile: aws-serverless
   vpc:
     securityGroupIds:
-      - sg-023fc0ceb6078a1b9
+      - sg-0bb02e3f7ef39fdf5
+    subnetIds:
+      - subnet-0c19620347ff05c33
   runtime: nodejs20.x
   timeout: 2 # in seconds
 
@@ -21,12 +23,12 @@ package:
 # The name of your layer in the CloudFormation template will be your layer name TitleCased (without spaces) and have LambdaLayer appended to the end
 # For a layer named "Test", use "!Ref TestLambdaLayer"
 layers:
-  nodeModulesLayer:
-    description: A layer with node_modules for production environment
-    path: aws_node_modules
+  node:
+    description: A layer with node_modules for production environment and database certificates
+    path: aws_node_layer
     package:
-      # see project /docs/markdown/how-to-deploy.md to details as how to generate the nodejs_node_modules.zip file
-      artifact: aws_node_modules/nodejs_node_modules.zip
+      # see project /docs/markdown/how-to-deploy.md to details as how to generate the aws-lambda-layer.zip file
+      artifact: aws-lambda-layer/aws-lambda-layer.zip
 
 functions:
   login:
@@ -38,7 +40,7 @@ functions:
         - ./**
     handler: dist/apps/login/lambda.handler
     layers:
-      - !Ref NodeModulesLayerLambdaLayer
+      - !Ref NodeLambdaLayer
     events:
       - http:
           method: POST
@@ -53,7 +55,7 @@ functions:
         - ./**
     handler: dist/apps/logout/lambda.handler
     layers:
-      - !Ref NodeModulesLayerLambdaLayer
+      - !Ref NodeLambdaLayer
     events:
       - http:
           method: POST

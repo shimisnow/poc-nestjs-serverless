@@ -31,11 +31,16 @@ classDef serverless_style fill:#fd5750
 
 state "Docker" as docker_group {
     direction TB
-    state "Build node modules in Linux environment" as node_modules_build
-    state "Export node modules to zip file" as node_modules_zip
+    state "Build node_modules in Linux environment" as node_modules_build
+    state "Download Amazon RDS Certificates" as rds_cert
+    state docker_join <<join>>
+    state "Export layer content to zip file" as layer_zip
     [*] --> node_modules_build
-    node_modules_build --> node_modules_zip
-    node_modules_zip --> [*]
+    [*] --> rds_cert
+    node_modules_build --> docker_join
+    rds_cert --> docker_join
+    docker_join --> layer_zip
+    layer_zip --> [*]
 }
 docker_group:::docker_style
 

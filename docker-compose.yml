@@ -3,8 +3,9 @@ networks:
     driver: bridge
 
 services:
-  aws-node-modules:
-    image: aws-node-modules:latest
+  aws-lambda-layer:
+    image: aws-lambda-layer:latest
+    env_file: ./deployment/local-dev/.env
     build:
       context: .
       dockerfile: ./deployment/aws-lambda/layers/Dockerfile
