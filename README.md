@@ -2,7 +2,7 @@
 
 # NestJS Monorepo and Serveless Framework
 
-This monorepo contains a set of **REST APIs microservices** built with **NestJS**, deployed using the **Serverless Framework** with **AWS Lambda** and **API Gateway** for serverless architecture. The project is managed with **Terraform** for infrastructure automation, integrating **AWS RDS** for relational database services and **AWS ElastiCache** for distributed caching. It is designed to streamline the deployment and management of serverless applications, offering seamless API integration, infrastructure provisioning, and efficient scaling on AWS.
+This monorepo contains a set of **REST APIs microservices** built with **NestJS**, deployed using the **Serverless Framework** with **AWS Lambda** and **API Gateway** for app-specific infrastructure. The project shared infrastructure is managed with **Terraform**, integrating **AWS RDS** for relational database services and **AWS ElastiCache** for distributed caching. It is designed to streamline the deployment and management of serverless applications, offering seamless API integration, infrastructure provisioning, and efficient scaling on AWS.
 
 ## Technology Stack
 
@@ -16,6 +16,74 @@ This monorepo contains a set of **REST APIs microservices** built with **NestJS*
 - Tests: Unit and integration testing ([Jest](https://jestjs.io/))
 - Documentation: Markdown, [Mermaid (diagram-as-code)](https://mermaid.js.org/)
 - Others: Docker
+
+## Deployment flow
+
+See details as [how to deploy](docs/markdown/how-to-deploy.md) in the deployment documentation.
+
+```mermaid
+stateDiagram-v2
+direction LR
+
+classDef docker_style fill:#1d63ed
+classDef terraform_style fill:#7b42bc
+classDef serverless_style fill:#fd5750
+
+state "Docker" as docker_group {
+    direction TB
+    state "Build node modules in Linux environment" as node_modules_build
+    state "Export node modules to zip file" as node_modules_zip
+    [*] --> node_modules_build
+    node_modules_build --> node_modules_zip
+    node_modules_zip --> [*]
+}
+docker_group:::docker_style
+
+state "Terraform" as terraform_group {
+    state "Build shared infrastructure" as terraform_build
+    state "Amazon RDS - PostgreSQL" as aws_database
+    state "Amazon ElastiCache - Redis" as aws_cache
+    state terraform_join <<join>>
+    [*] --> terraform_build
+    terraform_build --> aws_database
+    terraform_build --> aws_cache
+    aws_database --> terraform_join
+    aws_cache --> terraform_join
+    terraform_join --> [*]
+}
+terraform_group:::terraform_style
+
+state start_fork <<fork>>
+[*] --> start_fork
+start_fork --> docker_group
+start_fork --> terraform_group
+
+state start_join <<join>>
+docker_group --> start_join
+terraform_group --> start_join
+
+state "Build code" as build_code
+
+start_join --> build_code
+
+state "Deploy AWS Lambda Layer" as lambda_layer
+state "Deploy AWS Lambda Function - Login" as lambda_login
+state "Deploy AWS Lambda Function - Logout" as lambda_logout
+state "Deploy AWS API Gateway" as api_gateway
+
+state "Serverless Framework" as serverless_group {
+    lambda_layer --> lambda_login
+    lambda_layer --> lambda_logout
+    state lambda_join <<join>>
+    lambda_login --> lambda_join
+    lambda_logout --> lambda_join
+    lambda_join --> api_gateway
+}
+serverless_group:::serverless_style
+
+build_code --> lambda_layer
+api_gateway --> [*]
+```
 
 ## General organization
 
