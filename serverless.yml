@@ -5,13 +5,16 @@ service: poc-nestjs-serverless
 provider:
   name: aws
   region: us-east-1
-  profile: aws-serverless
   vpc:
     securityGroupIds:
       - sg-0bb02e3f7ef39fdf5
     subnetIds:
       - subnet-0c19620347ff05c33
+  profile: aws-serverless
+  stage: ${opt:stage, 'dev'}
   runtime: nodejs20.x
+  environment:
+    NODE_ENV: ${opt:stage, 'dev'}
   timeout: 2 # in seconds
 
 plugins:
