@@ -1,21 +1,21 @@
 ![](docs/markdown/images/serverless-framework.png)
 
-# NestJS Monorepo and Serveless Framework
-
-This monorepo contains a set of **REST APIs microservices** built with **NestJS**, deployed using the **Serverless Framework** with **AWS Lambda** and **API Gateway** for app-specific infrastructure. The project shared infrastructure is managed with **Terraform**, integrating **AWS RDS** for relational database services and **AWS ElastiCache** for distributed caching. It is designed to streamline the deployment and management of serverless applications, offering seamless API integration, infrastructure provisioning, and efficient scaling on AWS.
+# NestJS and Serveless Framework
 
 ## Technology Stack
 
-- Serverless deployment: [Serverless Framework](https://www.serverless.com/), [Webpack](https://webpack.js.org/)
-- Infrastructure as code (IaC): [Terraform](https://www.terraform.io/)
-- AWS Cloud: [Lambda](https://aws.amazon.com/lambda/) functions and layers, [API Gateway](https://aws.amazon.com/api-gateway/), [RDS](https://aws.amazon.com/rds/), [ElastiCache](https://aws.amazon.com/elasticache/)
-- Backend: [NestJS Framework](https://docs.nestjs.com/), Node.js, REST API, TypeScript
-- Code organization: monorepo with [NestJS workspaces](https://docs.nestjs.com/cli/monorepo#monorepo-mode)
-- Database and cache: PostgreSQL, Redis, [TypeORM](https://typeorm.io/)
-- Security: [JWT](https://jwt.io/) and [BCrypt](https://www.npmjs.com/package/bcrypt)
-- Tests: Unit and integration testing ([Jest](https://jestjs.io/))
-- Documentation: Markdown, [Mermaid (diagram-as-code)](https://mermaid.js.org/)
-- Others: Docker
+- **Monorepo**: This is a [monorepo](https://docs.nestjs.com/cli/monorepo#monorepo-mode) containing multiple Lambda functions and shared infrastructure
+- **REST API**: The functions are built using REST APIs to enable communication between components
+- **NestJS**: Uses [NestJS framework](https://docs.nestjs.com/) for building scalable server-side application
+- **Cloud-Native Architecture**: Built using cloud-native patterns and best practices to maximize the benefits of the cloud infrastructure, such as scalability and high availability
+- **Serverless Framework**: Deployed using the [Serverless Framework](https://www.serverless.com/) for easy management of serverless applications
+- **AWS Lambda**: Used for serverless function execution, where business logic is run in response to events
+- **AWS API Gateway**: Used to create and manage APIs, providing endpoints for client applications to interact with the functions
+- **Infrastructure as Code (IaC)**: Manages shared infrastructure using [Terraform](https://www.terraform.io/)
+- **AWS Cloud**: Uses [RDS](https://aws.amazon.com/rds/) (relational database services), and [ElastiCache](https://aws.amazon.com/elasticache/) (distributed caching)
+- **Tests**: Unit and integration testing ([Jest](https://jestjs.io/))
+- **Documentation**: [OpenAPI](https://swagger.io/specification/), [Mermaid (diagram-as-code)](https://mermaid.js.org/)
+- **Others**: [TypeORM](https://typeorm.io/), [Webpack](https://webpack.js.org/), [JWT](https://jwt.io/)
 
 ## Deployment flow
 
