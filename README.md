@@ -141,3 +141,4 @@ consumer --> api_entrypoint
 - [How to contribute](./CONTRIBUTING.md)
 - [How to run from code](docs/markdown/how-to-run.md)
 - [How to deploy](docs/markdown/how-to-deploy.md)
+- [OpenAPI documentation](docs/markdown/documentation.md)
