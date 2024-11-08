@@ -42,10 +42,21 @@ services:
     volumes:
       - ./deployment/redis-ui:/settings
 
+  openapi-merge:
+    image: openapi-merge:latest
+    build:
+      context: .
+      dockerfile: ./deployment/openapi/Dockerfile
+    volumes:
+      - ./deployment/openapi/json-merger.js:/home/node/app/json-merger.js
+      - ./apps/login/docs/openapi/openapi-docs.json:/openapi/login/openapi-docs.json
+      - ./apps/logout/docs/openapi/openapi-docs.json:/openapi/logout/openapi-docs.json
+      - ./docs/openapi/openapi-docs.json:/openapi/openapi-docs.json
+    command: node json-merger.js
+
   openapi:
     image: nginx:1.27.2-alpine3.20
     ports:
       - 8081:80
     volumes:
-      - ./apps/login/docs/openapi:/usr/share/nginx/html/login
-      - ./apps/logout/docs/openapi:/usr/share/nginx/html/logout
+      - ./docs/openapi:/usr/share/nginx/html:ro
