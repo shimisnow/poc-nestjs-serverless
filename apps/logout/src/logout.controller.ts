@@ -11,11 +11,13 @@ import {
   ApiInternalServerErrorResponse,
   ApiOkResponse,
   ApiOperation,
+  ApiTags,
 } from '@nestjs/swagger';
-import { DefaultError500Serializer } from './serializers/default-error-500.serializer';
-import { DefaultError502Serializer } from './serializers/default-error-502.serializer';
+import { LogoutError500Serializer } from './serializers/logout-error-500.serializer';
+import { LogoutError502Serializer } from './serializers/logout-error-502.serializer';
 
 @Controller('logout')
+@ApiTags('auth')
 export class LogoutController {
   constructor(private readonly logoutService: LogoutService) {}
 
@@ -39,11 +41,11 @@ export class LogoutController {
   @ApiInternalServerErrorResponse({
     description:
       'The server has encountered a situation it does not know how to handle. See server logs for details',
-    type: DefaultError500Serializer,
+    type: LogoutError500Serializer,
   })
   @ApiBadGatewayResponse({
     description: 'Internal data processing error. Probably a database error',
-    type: DefaultError502Serializer,
+    type: LogoutError502Serializer,
   })
   async logout(@User() user: UserPayload): Promise<LogoutSerializer> {
     return await this.logoutService.logout(user.userId, user.loginId);

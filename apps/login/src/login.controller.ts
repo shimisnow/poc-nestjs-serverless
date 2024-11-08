@@ -13,9 +13,9 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { LoginError400Serializer } from './serializers/login-error-400.serializer';
-import { DefaultError401Serializer } from './serializers/default-error-401.serializer';
-import { DefaultError500Serializer } from './serializers/default-error-500.serializer';
-import { DefaultError502Serializer } from './serializers/default-error-502.serializer';
+import { LoginError401Serializer } from './serializers/login-error-401.serializer';
+import { LoginError500Serializer } from './serializers/login-error-500.serializer';
+import { LoginError502Serializer } from './serializers/login-error-502.serializer';
 
 @Controller('login')
 @ApiTags('auth')
@@ -45,16 +45,16 @@ export class LoginController {
   @ApiUnauthorizedResponse({
     description:
       'User does not exists, exists and is inactive or the password is wrong',
-    type: DefaultError401Serializer,
+    type: LoginError401Serializer,
   })
   @ApiInternalServerErrorResponse({
     description:
       'The server has encountered a situation it does not know how to handle. See server logs for details',
-    type: DefaultError500Serializer,
+    type: LoginError500Serializer,
   })
   @ApiBadGatewayResponse({
     description: 'Internal data processing error. Probably a database error',
-    type: DefaultError502Serializer,
+    type: LoginError502Serializer,
   })
   async login(@Body() body: LoginBodyDto): Promise<LoginSerializer> {
     return await this.loginService.login(

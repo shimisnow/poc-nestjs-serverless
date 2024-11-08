@@ -1,9 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { LoginError401DataSerializer } from './login-error-401-data.serializer';
 
 export class LoginError401Serializer {
   @ApiProperty({
-    description: 'HTTP code',
-    example: 400,
+    description: 'HTTP status code',
+    example: 401,
   })
   statusCode: number;
 
@@ -12,4 +13,10 @@ export class LoginError401Serializer {
     example: 'Unauthorized',
   })
   error: string;
+
+  @ApiProperty({
+    description: 'Information about the error',
+    required: false,
+  })
+  data?: LoginError401DataSerializer;
 }

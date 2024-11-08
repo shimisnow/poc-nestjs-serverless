@@ -1,7 +1,7 @@
 import { AUTHENTICATION_ERROR } from '@libs/auth/enums/authentication-error.enum';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class DefaultError401DataSerializer {
+export class LoginError401DataSerializer {
   @ApiProperty({
     description: 'Unique error name. Can be used to identify the error',
     enum: AUTHENTICATION_ERROR,
