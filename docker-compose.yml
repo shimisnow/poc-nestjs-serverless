@@ -48,9 +48,9 @@ services:
       context: .
       dockerfile: ./deployment/openapi/Dockerfile
     volumes:
-      - ./deployment/openapi/json-merger.js:/home/node/app/json-merger.js
-      - ./apps/login/docs/openapi/openapi-docs.json:/openapi/login/openapi-docs.json
-      - ./apps/logout/docs/openapi/openapi-docs.json:/openapi/logout/openapi-docs.json
+      - ./deployment/openapi/json-merger.js:/home/node/app/json-merger.js:ro
+      - ./apps/login/docs/openapi/openapi-docs.json:/openapi/login/openapi-docs.json:ro
+      - ./apps/logout/docs/openapi/openapi-docs.json:/openapi/logout/openapi-docs.json:ro
       - ./docs/openapi/openapi-docs.json:/openapi/openapi-docs.json
     command: node json-merger.js
 
